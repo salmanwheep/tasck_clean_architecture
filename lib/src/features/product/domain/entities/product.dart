@@ -1,7 +1,6 @@
 import '../../data/models/product.dart';
 
 class ProductEntity {
-  ProductEntity();
   final int id;
   final String title;
 
