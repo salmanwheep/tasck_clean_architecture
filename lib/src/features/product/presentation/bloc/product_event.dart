@@ -1,4 +1,4 @@
-part of 'product_bloc.dart';
+import 'package:equatable/equatable.dart';
 
 sealed class ProductEvent extends Equatable {
   const ProductEvent();
@@ -35,7 +35,7 @@ final class SwichedProduct extends ProductEvent {
   ];
 }
 
-final class LoadingMore extends ProductState {
+final class LoadingMore extends ProductEvent {
   @override
   List<Object?> get props => [];
 }
