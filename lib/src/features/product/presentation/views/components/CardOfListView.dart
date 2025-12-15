@@ -6,13 +6,11 @@ class CardOfListView extends StatelessWidget {
   final ProductEntity model;
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Column(
         children: [
           Row(
-            // mainAxisSize: MainAxisSize.min,
             children: [
               Expanded(child: Image.network(model.image)),
               Expanded(
