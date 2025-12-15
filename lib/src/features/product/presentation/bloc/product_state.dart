@@ -1,6 +1,9 @@
 part of 'product_bloc.dart';
 
-sealed class ProductState {}
+sealed class ProductState extends Equatable {
+  @override
+  List<Object?> get props => [];
+}
 
 final class ProductInitial extends ProductState {}
 
