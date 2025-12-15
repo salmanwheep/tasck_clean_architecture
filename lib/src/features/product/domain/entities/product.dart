@@ -8,10 +8,10 @@ class ProductEntity {
   final double rating;
   final String shippingInformation;
   final int reviewsCount;
-  
+
   final String image;
 
-  ProductEntity({
+  const ProductEntity({
     required this.id,
     required this.title,
     required this.price,
@@ -19,6 +19,14 @@ class ProductEntity {
     required this.shippingInformation,
     required this.reviewsCount,
     required this.image,
-  }); 
-  ProductModel get toModel => ProductModel();
+  });
+  ProductModel get toModel => ProductModel(
+    id: id,
+    title: title,
+    price: price,
+    rating: rating,
+    shippingInformation: shippingInformation,
+    reviewsCount: reviewsCount,
+    image: image,
+  );
 }
