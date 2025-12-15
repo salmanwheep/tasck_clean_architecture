@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tasck_clean_architecture/src/features/product/data/models/product.dart';
 import 'package:tasck_clean_architecture/src/features/product/domain/entities/product.dart';
 
 class CardOfListView extends StatelessWidget {

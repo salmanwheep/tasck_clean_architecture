@@ -17,7 +17,6 @@ class ProductView extends StatelessWidget {
   Widget _buildBody() {
     return BlocBuilder<ProductBloc, ProductState>(
       builder: (context, state) {
-        final bloc = context.watch<ProductBloc>();
         if (state is ProductLoading) {
           return Center(child: CircularProgressIndicator());
         } else if (state is ProductLoaded) {
