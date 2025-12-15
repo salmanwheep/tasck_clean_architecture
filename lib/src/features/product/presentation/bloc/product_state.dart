@@ -23,31 +23,15 @@ final class ProductError extends ProductState {
   final String message;
 }
 
-class ProductStateData extends ProductState {
-  @override
-  List<Object?> get props => [];
-
+class ProductLoaded extends ProductState {
+  final bool isList;
+  final bool isLoadMore;
   final List<ProductEntity> products;
-  ProductStateData({required this.products});
-}
-
-final class ProductLoaded extends ProductStateData {
+  ProductLoaded({
+    required this.products,
+    required this.isList,
+    required this.isLoadMore,
+  });
   @override
-  List<Object?> get props => [];
-
-  ProductLoaded({required super.products});
-}
-
-final class ProductLoadedGridView extends ProductStateData {
-  @override
-  List<Object?> get props => [];
-
-  ProductLoadedGridView({required super.products});
-}
-
-final class ProductLoadedListView extends ProductStateData {
-  @override
-  List<Object?> get props => [];
-
-  ProductLoadedListView({required super.products});
+  List<Object?> get props => [isList, isLoadMore, products];
 }
