@@ -1,13 +1,16 @@
 part of 'product_bloc.dart';
 
 sealed class ProductEvent extends Equatable {
+  const ProductEvent();
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [];
 }
 
 final class FetchProduct extends ProductEvent {
   final int current;
-  FetchProduct({required this.current});
+  const FetchProduct({required this.current});
+  @override
+  List<Object?> get props => [current];
 }
 
 final class RefreshProduct extends ProductEvent {}
@@ -15,5 +18,7 @@ final class RefreshProduct extends ProductEvent {}
 final class SwichedProduct extends ProductEvent {
   final bool isList;
   final List<ProductEntity> products;
-  SwichedProduct({required this.isList, required this.products});
+  const SwichedProduct({required this.isList, required this.products});
+  @override
+  List<Object?> get props => [isList, products];
 }
