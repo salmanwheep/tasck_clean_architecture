@@ -10,8 +10,8 @@ final class ProductInitial extends ProductState {}
 final class ProductLoading extends ProductState {}
 
 final class ProductError extends ProductState {
-  final String message;
   ProductError({required this.message});
+  final String message;
 }
 
 class ProductStateData extends ProductState {
