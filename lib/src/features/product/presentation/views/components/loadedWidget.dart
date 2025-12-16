@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tasck_clean_architecture/src/features/product/domain/entities/product.dart';
 import 'package:tasck_clean_architecture/src/features/product/presentation/bloc/product_bloc.dart';
+import 'package:tasck_clean_architecture/src/features/product/presentation/bloc/product_event.dart';
 import 'package:tasck_clean_architecture/src/features/product/presentation/views/components/CardOfGridView.dart';
 import 'package:tasck_clean_architecture/src/features/product/presentation/views/components/CardOfListView.dart';
 
@@ -22,9 +23,7 @@ class Loadedwidget extends StatelessWidget {
       double scroll = scrollController!.position.maxScrollExtent;
       if (scrollController!.position.pixels ==
           scrollController!.position.maxScrollExtent) {
-        context.read<ProductBloc>().add(
-          FetchProduct(current: productList.length),
-        );
+        context.read<ProductBloc>().add(LoadingMore());
         scrollController!.position.setPixels(scroll);
       }
       print(scrollController!.position.pixels);
@@ -39,6 +38,7 @@ class Loadedwidget extends StatelessWidget {
               controller: scrollController,
             )
           : GridView.builder(
+              controller: scrollController,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
               ),
