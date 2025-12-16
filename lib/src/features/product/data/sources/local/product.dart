@@ -23,7 +23,7 @@ class ProductLocalServiceImpl implements ProductLocalService {
 
   @override
   Future<Unit> cacheProducts(List<ProductModel> products) async {
-    products.forEach((p) async {
+    products.map((p) async {
       await databaseHelper.insert(p.toJson(), "product");
     });
     return Future.value(unit);
