@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tasck_clean_architecture/src/features/product/presentation/bloc/product_event.dart';
 import 'package:tasck_clean_architecture/src/features/product/presentation/views/components/loadedWidget.dart';
 import '../bloc/product_bloc.dart';
 
@@ -15,28 +16,49 @@ class ProductView extends StatelessWidget {
   }
 
   Widget _buildBody() {
-    return BlocBuilder<ProductBloc, ProductState>(
-      builder: (context, state) {
-        if (state is ProductLoading) {
-          return Center(child: CircularProgressIndicator());
-        } else if (state is ProductLoaded) {
-          return Center(
-            child: Loadedwidget(productList: state.products, isList: true),
-          );
-        } else if (state is ProductError) {
-          return Center(
-            child: Text(state.message, style: TextStyle(color: Colors.red)),
-          );
-        } else if (state is ProductLoadedGridView) {
-          return Center(
-            child: Loadedwidget(productList: state.products, isList: false),
-          );
-        } else if (state is ProductLoadedListView) {
-          return Center(
-            child: Loadedwidget(productList: state.products, isList: true),
-          );
-        }
-        return Center(child: Text('Fetch Data'));
+    return Builder(
+      builder: (context) {
+        return RefreshIndicator(
+          child: BlocBuilder<ProductBloc, ProductState>(
+            builder: (context, state) {
+              return Column(
+                children: [
+                  Expanded(
+                    child: (state is ProductLoading)
+                        ? Center(child: CircularProgressIndicator())
+                        : (state is ProductError)
+                        ? Center(
+                            child: Text(
+                              state.message,
+                              style: TextStyle(color: Colors.red),
+                            ),
+                          )
+                        : (state is ProductLoaded)
+                        ? Column(
+                            children: [
+                              Expanded(
+                                child: Loadedwidget(
+                                  productList: state.products,
+                                  isList: state.isList,
+                                ),
+                              ),
+                              SizedBox(height: 10),
+                              state.isLoadMore
+                                  ? CircularProgressIndicator()
+                                  : Container(),
+                              SizedBox(height: 20),
+                            ],
+                          )
+                        : Center(child: Text('Fetch Data')),
+                  ),
+                ],
+              );
+            },
+          ),
+          onRefresh: () async {
+            context.read<ProductBloc>().add(RefreshProduct());
+          },
+        );
       },
     );
   }
