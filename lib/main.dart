@@ -14,25 +14,21 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => di.sl<ProductBloc>()..add(FetchProduct())),
       ],
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-        home: Home(),
-      ),
+      child: const MaterialApp(title: 'Flutter Demo', home: Home()),
     );
   }
 }
 
 class Home extends StatefulWidget {
+  const Home({super.key});
   @override
   State<StatefulWidget> createState() => HomeState();
 }
@@ -42,8 +38,41 @@ class HomeState extends State<Home> {
   @override
   build(BuildContext context) {
     return Scaffold(
+      drawer: Container(
+        color: Colors.white,
+        width: 350,
+        height: double.infinity,
+      ),
       appBar: AppBar(
-        title: Text("welcome"),
+        title: Column(
+          children: [
+            Text(
+              "Shop",
+              style: TextStyle(
+                fontWeight: FontWeight.w900,
+                fontSize: 20,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
+        ),
+
+        bottom: PreferredSize(
+          preferredSize: Size(0, 30),
+          child: Container(
+            padding: EdgeInsets.only(left: 20),
+            width: double.infinity,
+            child: Text(
+              "Product List",
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ),
+        ),
+        // excludeHeaderSema/sntics: true,
         actions: [
           IconButton(
             onPressed: () {
@@ -52,11 +81,11 @@ class HomeState extends State<Home> {
                 productBloc.add(SwichedProduct());
               }
             },
-            icon: Icon(Icons.sports_basketball),
+            icon: Icon(Icons.shopping_cart),
           ),
         ],
       ),
-      body: ProductView(),
+      body: const ProductView(),
     );
   }
 }
