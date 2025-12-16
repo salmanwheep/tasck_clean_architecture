@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tasck_clean_architecture/core/error/failure.dart';
 import 'package:tasck_clean_architecture/core/strings/failures.dart';
@@ -42,17 +41,20 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         );
       }
     });
-    on<LoadingMore>((event, emit) {
+    on<LoadingMore>((event, emit) async {
       if (state is ProductLoaded) {
         var currentState = state as ProductLoaded;
-
         emit(
           ProductLoaded(
+            isList: currentState.isList,
+            isLoadMore: true,
             products: currentState.products,
-            isList: !currentState.isList,
-            isLoadMore: false,
           ),
         );
+        final products = await fetchProduct.execute(
+          currentState.products.length,
+        );
+        emit(_mapFailureToState(products));
       }
     });
   }
@@ -66,7 +68,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           return ProductLoaded(
             products: listData,
             isList: currentState.isList,
-            isLoadMore: currentState.isLoadMore,
+            isLoadMore: false,
           );
         } else {
           return ProductLoaded(
