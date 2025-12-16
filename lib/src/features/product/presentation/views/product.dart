@@ -9,13 +9,6 @@ class ProductView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Product')),
-      body: _buildBody(),
-    );
-  }
-
-  Widget _buildBody() {
     return Builder(
       builder: (context) {
         return RefreshIndicator(
